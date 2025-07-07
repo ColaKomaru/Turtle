@@ -241,12 +241,20 @@ function library:Window(name)
         Label.TextColor3 = color
     end
 
-    function Label:NewText(newText)
-        self.Text = newText
+    pastSliders[winCount] = false
+
+    -- Объект-обёртка с методом NewText
+    local LabelObject = {}
+
+    function LabelObject:NewText(newText)
+        Label.Text = newText
     end
 
-    pastSliders[winCount] = false
-    return Label
+    function LabelObject:GetInstance()
+        return Label
+    end
+
+    return LabelObject
 end
     function functions:Toggle(text, on, callback)
         local callback = callback or function() end
